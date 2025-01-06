@@ -9,10 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
 
       - name: Install huff-neo nightly
         uses: ./ # use huff-toolchain current commit
