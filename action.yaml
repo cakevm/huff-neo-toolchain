@@ -1,5 +1,5 @@
-name: 'huff-toolchain'
-description: 'Install Huff'
+name: 'huff-neo-toolchain'
+description: 'Install huff-neo'
 author: 'cakevm'
 branding:
   icon: play-circle
