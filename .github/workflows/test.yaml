@@ -14,28 +14,28 @@ jobs:
         with:
           version: nightly
 
-      - name: Install Huff nightly
+      - name: Install huff-neo nightly
         uses: ./ # use huff-toolchain current commit
         with:
           version: nightly
 
-      - name: Save huffc version in env for future comparison
-        run: echo "HUFF_VERSION=$(huffc -V)" >> $GITHUB_ENV
+      - name: Save huff-neo version in env for future comparison
+        run: echo "HUFF_VERSION=$(huff-neo -V)" >> $GITHUB_ENV
 
       - name: Compile example
-        run: huffc examples/test.huff
+        run: huff-neo examples/test.huff
 
-      - name: Install Huff with specific nightly
-        uses: ./ # use huff-toolchain current commit
+      - name: Install huff-neo with specific nightly
+        uses: ./ # use huff-neo-toolchain current commit
         with:
           # This version was picked as it will output 0.3.0
           # Nightly and next versions outputs >= 0.3.1
-          version: nightly-d4638680736ad104290bc7a28542c058a18debf4
+          version: nightly-654207cd75a85ae3cb144eb208a2c671ee71268f
 
       - name: Save huffc version in env for future comparison
         run: echo "HUFF_SPECIFIC_VERSION=$(huffc -V)" >> $GITHUB_ENV
 
-      # Compare huffc versions saved in GITHUB_ENV
+      # Compare huff-neo versions saved in GITHUB_ENV
       # If they are equal, the specific nightly version was not installed
       # In this case, print a message and fail the job by exiting
       # Otherwise, it will continue to next step
@@ -46,4 +46,4 @@ jobs:
           exit 1
 
       - name: Compile example
-        run: huffc examples/test.huff
+        run: huff-neo examples/test.huff
