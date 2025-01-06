@@ -1,6 +1,6 @@
-## Huff Toolchain
+## GitHub Action for huff-neo
 
-GitHub Action that installs [huffc](https://github.com/huff-language/huff-rs).
+GitHub Action that installs [huff-neo](https://github.com/cakevm/huff-neo).
 
 
 ### Example workflow
@@ -19,13 +19,13 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install Huff
-        uses: huff-language/huff-toolchain@v3
+      - name: Install huff-neo
+        uses: cakevm/huff-neo-toolchain@v1
         with:
           version: nightly
 
       - name: Compile
-        run: huffc . -b
+        run: huff-neo . -b
 ```
 
 
@@ -38,9 +38,9 @@ jobs:
 
 ### Summaries
 
-You can add the output of `huffc` to GitHub step summaries. The summaries support GitHub flavored Markdown.
+You can add the output of `huff-neo` to GitHub step summaries. The summaries support GitHub flavored Markdown.
 
-See the offical [GitHub docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary) for more information.
+See the official [GitHub docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary) for more information.
 
 
 ### Contributing
@@ -55,4 +55,4 @@ npm i -g @vercel/ncc
 
 ### Acknowledgements
 
-- [Foundry Toolchain](https://github.com/foundry-rs/foundry-toolchain)
+Thank you very much to the orginal [huff-toolchain](https://github.com/cakevm/huff-neo-toolchain) for the initial version. And many thanks to [foundry-toolchain](https://github.com/foundry-rs/foundry-toolchain) for the foundation of this action.

@@ -11,9 +11,9 @@ function mapArch (arch) {
 
 function getDownloadObject (version) {
   const platform = os.platform()
-  const filename = `huff_nightly_${platform}_${mapArch(os.arch())}`
+  const filename = `huff_neo_nightly_${platform}_${mapArch(os.arch())}`
   const extension = platform === 'win32' ? 'zip' : 'tar.gz'
-  const url = `https://github.com/huff-language/huff-rs/releases/download/${version}/${filename}.${extension}`
+  const url = `https://github.com/cakevm/huff-neo/releases/download/${version}/${filename}.${extension}`
 
   return {
     url,
