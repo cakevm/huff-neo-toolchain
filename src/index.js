@@ -10,6 +10,7 @@ async function setup() {
 
     // Download tarball
     const download = getDownloadObject(version)
+    core.info(`Downloading neo-huff '${version}' from: ${download.url}`);
     const pathToTarBall = await tc.downloadTool(download.url)
 
     // Extract the tarball onto host runner
