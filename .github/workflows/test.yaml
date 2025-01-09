@@ -28,8 +28,8 @@ jobs:
           # Nightly and next versions outputs >= 0.3.1
           version: 0.0.4
 
-      - name: Save huffc version in env for future comparison
-        run: echo "HUFF_SPECIFIC_VERSION=$(huffc -V)" >> $GITHUB_ENV
+      - name: Save hnc version in env for future comparison
+        run: echo "HUFF_SPECIFIC_VERSION=$(hnc -V)" >> $GITHUB_ENV
 
       # Compare hnc versions saved in GITHUB_ENV
       # If they are equal, the specific nightly version was not installed
