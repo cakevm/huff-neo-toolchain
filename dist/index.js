@@ -29396,8 +29396,17 @@ const { getDownloadObject } = __nccwpck_require__(1608)
 
 async function setup() {
   try {
-    // Get version
-    const version = core.getInput('version')
+    // Read version number from input. Allowed: 'latest' or 'vX.Y.Z'
+    let version = core.getInput('version')
+
+    if(version === 'latest' || version === '') {
+        core.info('Fetching latest version of neo-huff')
+        // Fetch latest version from github.com/cakevm/huff-neo/releases/latest
+        const latestReleaseUrl = 'https://api.github.com/repos/cakevm/huff-neo/releases/latest'
+        const response = await fetch(latestReleaseUrl)
+        const data = await response.json()
+        version = data.tag_name
+    }
 
     // Download tarball
     const download = getDownloadObject(version)
@@ -29430,18 +29439,27 @@ const os = __nccwpck_require__(2037)
 
 function mapArch (arch) {
   const mappings = {
-    x32: '386',
-    x64: 'amd64'
+    x64: 'x86_64',
+    arm64: 'aarch64'
+  }
+
+  return mappings[arch] || arch
+}
+
+function mapPlatform (arch) {
+  const mappings = {
+    linux: 'unknown-linux-gnu',
+    darwin: 'apple-darwin',
   }
 
   return mappings[arch] || arch
 }
 
 function getDownloadObject (version) {
-  const platform = os.platform()
-  const filename = `huff_neo_nightly_${platform}_${mapArch(os.arch())}`
-  const extension = platform === 'win32' ? 'zip' : 'tar.gz'
-  const url = `https://github.com/cakevm/huff-neo/releases/download/${version}/${filename}.${extension}`
+  const platform = mapPlatform(os.platform())
+  const arch = mapArch(os.arch())
+  const filename = `hnc-v${version}-${arch}-${platform}.tar.gz`
+  const url = `https://github.com/cakevm/huff-neo/releases/download/${version}/${filename}`
 
   return {
     url,

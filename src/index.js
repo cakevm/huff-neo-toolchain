@@ -5,8 +5,17 @@ const { getDownloadObject } = require('./utils')
 
 async function setup() {
   try {
-    // Get version
-    const version = core.getInput('version')
+    // Read version number from input. Allowed: 'latest' or 'vX.Y.Z'
+    let version = core.getInput('version')
+
+    if(version === 'latest' || version === '') {
+        core.info('Fetching latest version of neo-huff')
+        // Fetch latest version from github.com/cakevm/huff-neo/releases/latest
+        const latestReleaseUrl = 'https://api.github.com/repos/cakevm/huff-neo/releases/latest'
+        const response = await fetch(latestReleaseUrl)
+        const data = await response.json()
+        version = data.tag_name
+    }
 
     // Download tarball
     const download = getDownloadObject(version)
