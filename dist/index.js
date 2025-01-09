@@ -29459,7 +29459,7 @@ function getDownloadObject (version) {
   const platform = mapPlatform(os.platform())
   const arch = mapArch(os.arch())
   const filename = `hnc-v${version}-${arch}-${platform}.tar.gz`
-  const url = `https://github.com/cakevm/huff-neo/releases/download/${version}/${filename}`
+  const url = `https://github.com/cakevm/huff-neo/releases/download/v${version}/${filename}`
 
   return {
     url,
