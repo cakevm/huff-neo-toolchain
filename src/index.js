@@ -14,7 +14,7 @@ async function setup() {
         const latestReleaseUrl = 'https://api.github.com/repos/cakevm/huff-neo/releases/latest'
         const response = await fetch(latestReleaseUrl)
         const data = await response.json()
-        version = data.tag_name
+        version = data.tag_name.substring(1) // Remove 'v' from vX.Y.Z
     }
 
     // Download tarball
