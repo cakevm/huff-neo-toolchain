@@ -1,9 +1,9 @@
-## GitHub Action for huff-neo
+# GitHub Action for huff-neo
 
 GitHub Action that installs [huff-neo](https://github.com/cakevm/huff-neo).
 
 
-### Example workflow
+## Example workflow
 
 ```yml
 on: [push]
@@ -21,29 +21,27 @@ jobs:
 
       - name: Install huff-neo
         uses: cakevm/huff-neo-toolchain@v1
-        with:
-          version: latest
 
       - name: Compile
         run: huff-neo . -b
 ```
 
 
-### Inputs
+## Inputs
 
 | **Name**  | **Required** | **Description**                               | **Type** |
 |-----------|--------------|-----------------------------------------------|----------|
-| `version` | Yes          | Version to install, e.g. `latest` or `1.0.0`  | string   |
+| `version` | No           | Version to install, e.g. `latest` or `1.0.0`  | string   |
 
 
-### Summaries
+## Summaries
 
 You can add the output of `hnc` to GitHub step summaries. The summaries support GitHub flavored Markdown.
 
 See the official [GitHub docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary) for more information.
 
 
-### Contributing
+## Contributing
 
 All contributions are welcome.
 
@@ -56,3 +54,7 @@ npm i -g @vercel/ncc
 ### Acknowledgements
 
 Thank you very much to the original [huff-toolchain](https://github.com/huff-language/huff-toolchain) for the initial version. And many thanks to [foundry-toolchain](https://github.com/foundry-rs/foundry-toolchain) for the foundation of this action.
+
+## License
+
+The project is licensed as the original [huff-toolchain](https://github.com/huff-language/huff-toolchain) under the [Apache 2.0](./LICENSE) license.
