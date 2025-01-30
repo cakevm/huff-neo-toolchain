@@ -16,31 +16,31 @@ jobs:
           version: latest
 
       - name: Save hnc version in env for future comparison
-        run: echo "HUFF_VERSION=$(hnc -V)" >> $GITHUB_ENV
+        run: echo "HUFF_NEO_VERSION=$(hnc -V)" >> $GITHUB_ENV
 
       - name: Compile example
         run: hnc examples/test.huff
 
-      - name: Install Huff Neo Compiler with specific version 0.0.4
+      - name: Install Huff Neo Compiler with specific version 1.0.7
         uses: ./ # use huff-neo-toolchain current commit
         with:
-          # This version was picked as it will output 0.3.0
-          # Nightly and next versions outputs >= 0.3.1
-          version: 0.0.4
+          # This version was picked as it will output 1.0.7
+          # Latest version > 1.0.7
+          version: 1.0.7
 
       - name: Save hnc version in env for future comparison
-        run: echo "HUFF_SPECIFIC_VERSION=$(hnc -V)" >> $GITHUB_ENV
+        run: echo "HUFF_NEO_SPECIFIC_VERSION=$(hnc -V)" >> $GITHUB_ENV
 
       # Compare hnc versions saved in GITHUB_ENV
       # If they are equal, the specific nightly version was not installed
       # In this case, print a message and fail the job by exiting
       # Otherwise, it will continue to next step
       # Activate later with a new version
-      #- name: Compare version
-      #  if: ${{ env.HUFF_SPECIFIC_VERSION == env.HUFF_VERSION }}
-      #  run: |
-      #    echo "specific version v0.0.4 was not installed"
-      #   exit 1
+      - name: Compare version
+        if: ${{ env.HUFF_NEO_SPECIFIC_VERSION == env.HUFF_NEO_VERSION }}
+        run: |
+          echo "specific version v1.0.7 was not installed"
+         exit 1
 
       - name: Compile example
         run: hnc examples/test.huff
