@@ -32,7 +32,7 @@ jobs:
         run: echo "HUFF_NEO_SPECIFIC_VERSION=$(hnc -V)" >> $GITHUB_ENV
 
       # Compare hnc versions saved in GITHUB_ENV
-      # If they are equal, the specific nightly version was not installed
+      # If they are equal, the specific latest version was not installed
       # In this case, print a message and fail the job by exiting
       # Otherwise, it will continue to next step
       # Activate later with a new version
@@ -40,7 +40,7 @@ jobs:
         if: ${{ env.HUFF_NEO_SPECIFIC_VERSION == env.HUFF_NEO_VERSION }}
         run: |
           echo "specific version v1.0.7 was not installed"
-         exit 1
+          exit 1
 
       - name: Compile example
         run: hnc examples/test.huff
