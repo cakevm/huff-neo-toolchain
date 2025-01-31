@@ -18,8 +18,7 @@ function mapPlatform (arch) {
   return mappings[arch] || arch
 }
 
-function getDownloadObject (version) {
-  const platform = mapPlatform(os.platform())
+function getDownloadObject (version, platform) {
   const arch = mapArch(os.arch())
   const filename = `hnc-v${version}-${arch}-${platform}.tar.gz`
   const url = `https://github.com/cakevm/huff-neo/releases/download/v${version}/${filename}`

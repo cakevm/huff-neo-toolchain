@@ -9,7 +9,11 @@ inputs:
     description: |
       The huff-neo version.
       This version number has to match a released version of huff-neo.
-      Alternatively you can also specify `nightly` for the latest nightly build.
+      Alternatively you can also specify `latest` for the latest build.
+  platform:
+    description: |
+      The target platform.
+      This is the target platform has to match a released version of huff-neo.
 runs:
   using: node16
   main: dist/index.js

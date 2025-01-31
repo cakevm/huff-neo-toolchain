@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 const tc = require('@actions/tool-cache')
 const path = require('path')
-const { getDownloadObject } = require('./utils')
+const { getDownloadObject, mapPlatform } = require('./utils')
 
 async function setup() {
   try {
@@ -17,8 +17,14 @@ async function setup() {
         version = data.tag_name.substring(1) // Remove 'v' from vX.Y.Z
     }
 
+    // Read platform from input. E.g. 'unknown-linux-gnu'
+    let platform = core.getInput('platform')
+    if(platform === '') {
+      platform = mapPlatform(os.platform())
+    }
+
     // Download tarball
-    const download = getDownloadObject(version)
+    const download = getDownloadObject(version, platform)
     core.info(`Downloading neo-huff '${version}' from: ${download.url}`);
     const pathToTarBall = await tc.downloadTool(download.url)
 

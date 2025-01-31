@@ -29392,7 +29392,7 @@ exports["default"] = _default;
 const core = __nccwpck_require__(2186)
 const tc = __nccwpck_require__(7784)
 const path = __nccwpck_require__(1017)
-const { getDownloadObject } = __nccwpck_require__(1608)
+const { getDownloadObject, mapPlatform } = __nccwpck_require__(1608)
 
 async function setup() {
   try {
@@ -29408,8 +29408,14 @@ async function setup() {
         version = data.tag_name.substring(1) // Remove 'v' from vX.Y.Z
     }
 
+    // Read platform from input. E.g. 'unknown-linux-gnu'
+    let platform = core.getInput('platform')
+    if(platform === '') {
+      platform = mapPlatform(os.platform())
+    }
+
     // Download tarball
-    const download = getDownloadObject(version)
+    const download = getDownloadObject(version, platform)
     core.info(`Downloading neo-huff '${version}' from: ${download.url}`);
     const pathToTarBall = await tc.downloadTool(download.url)
 
@@ -29455,8 +29461,7 @@ function mapPlatform (arch) {
   return mappings[arch] || arch
 }
 
-function getDownloadObject (version) {
-  const platform = mapPlatform(os.platform())
+function getDownloadObject (version, platform) {
   const arch = mapArch(os.arch())
   const filename = `hnc-v${version}-${arch}-${platform}.tar.gz`
   const url = `https://github.com/cakevm/huff-neo/releases/download/v${version}/${filename}`

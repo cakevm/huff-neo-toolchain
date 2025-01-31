@@ -29,9 +29,10 @@ jobs:
 
 ## Inputs
 
-| **Name**  | **Required** | **Description**                               | **Type** |
-|-----------|--------------|-----------------------------------------------|----------|
-| `version` | No           | Version to install, e.g. `latest` or `1.0.0`  | string   |
+| **Name**   | **Required** | **Description**                              | **Type** |
+|------------|--------------|----------------------------------------------|----------|
+| `version`  | No           | Version to install, e.g. `latest` or `1.0.0` | string   |
+| `platform` | No           | Platform to use e.g. `unknown-linux-gnu`     | string   |
 
 
 ## Summaries

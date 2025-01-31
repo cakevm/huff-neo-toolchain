@@ -14,6 +14,7 @@ jobs:
         uses: ./ # use huff-neo-toolchain current commit
         with:
           version: latest
+          platform: x86_64-unknown-linux-gnu
 
       - name: Save hnc version in env for future comparison
         run: echo "HUFF_NEO_VERSION=$(hnc -V)" >> $GITHUB_ENV
@@ -27,6 +28,7 @@ jobs:
           # This version was picked as it will output 1.0.7
           # Latest version > 1.0.7
           version: 1.0.7
+          platform: x86_64-unknown-linux-musl
 
       - name: Save hnc version in env for future comparison
         run: echo "HUFF_NEO_SPECIFIC_VERSION=$(hnc -V)" >> $GITHUB_ENV
