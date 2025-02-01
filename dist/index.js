@@ -29392,7 +29392,8 @@ exports["default"] = _default;
 const core = __nccwpck_require__(2186)
 const tc = __nccwpck_require__(7784)
 const path = __nccwpck_require__(1017)
-const { getDownloadObject, mapPlatform } = __nccwpck_require__(1608)
+const utils = __nccwpck_require__(1608)
+
 
 async function setup() {
   try {
@@ -29411,11 +29412,11 @@ async function setup() {
     // Read platform from input. E.g. 'unknown-linux-gnu'
     let platform = core.getInput('platform')
     if(platform === '') {
-      platform = mapPlatform(os.platform())
+      platform = utils.getPlatform()
     }
 
     // Download tarball
-    const download = getDownloadObject(version, platform)
+    const download = utils.getDownloadObject(version, platform)
     core.info(`Downloading neo-huff '${version}' from: ${download.url}`);
     const pathToTarBall = await tc.downloadTool(download.url)
 
@@ -29443,7 +29444,8 @@ if (require.main === require.cache[eval('__filename')]) {
 
 const os = __nccwpck_require__(2037)
 
-function mapArch (arch) {
+function getArch() {
+  let arch = os.arch();
   const mappings = {
     x64: 'x86_64',
     arm64: 'aarch64'
@@ -29452,19 +29454,20 @@ function mapArch (arch) {
   return mappings[arch] || arch
 }
 
-function mapPlatform (arch) {
+function getPlatform() {
+  const platform = os.platform();
   const mappings = {
     linux: 'unknown-linux-gnu',
     darwin: 'apple-darwin',
   }
 
-  return mappings[arch] || arch
+  return mappings[platform] || platform
 }
 
-function getDownloadObject (version, platform) {
-  const arch = mapArch(os.arch())
-  const filename = `hnc-v${version}-${arch}-${platform}.tar.gz`
-  const url = `https://github.com/cakevm/huff-neo/releases/download/v${version}/${filename}`
+function getDownloadObject(version, platform) {
+  const arch = getArch();
+  const filename = `hnc-v${version}-${arch}-${platform}.tar.gz`;
+  const url = `https://github.com/cakevm/huff-neo/releases/download/v${version}/${filename}`;
 
   return {
     url,
@@ -29473,7 +29476,8 @@ function getDownloadObject (version, platform) {
 }
 
 module.exports = {
-  getDownloadObject
+  getDownloadObject,
+  getPlatform
 }
 
 /***/ }),
