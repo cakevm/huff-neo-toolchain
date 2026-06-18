@@ -7,7 +7,7 @@
 #
 # Adapted from the official GitHub template:
 # https://github.com/actions/typescript-action/blob/200fd78b/.github/workflows/check-dist.yml
-name: Check dist/
+name: Check Bundled JavaScript
 
 on:
   pull_request:
