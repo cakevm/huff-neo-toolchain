@@ -1,4 +1,4 @@
-const os = require('os')
+import os from 'os'
 
 function getArch() {
   let arch = os.arch();
@@ -31,7 +31,7 @@ function getDownloadObject(version, platform) {
   }
 }
 
-module.exports = {
+export {
   getDownloadObject,
   getPlatform
 }

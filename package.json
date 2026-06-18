@@ -3,15 +3,22 @@
   "author": "cakevm",
   "license": "Apache-2.0",
   "main": "dist/index.js",
-  "keywords": ["huff-neo", "huff", "evm", "ethereum", "bytecode", "github-actions"],
+  "keywords": [
+    "huff-neo",
+    "huff",
+    "evm",
+    "ethereum",
+    "bytecode",
+    "github-actions"
+  ],
   "scripts": {
-    "build": "ncc build src/index.js -o dist --source-map"
+    "build": "esbuild src/index.js --bundle --platform=node --target=node24 --format=cjs --sourcemap --outfile=dist/index.js"
   },
   "dependencies": {
-    "@actions/core": "1.9.1",
-    "@actions/tool-cache": "^1.7.1"
+    "@actions/core": "^3.0.1",
+    "@actions/tool-cache": "^4.0.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.33.1"
+    "esbuild": "^0.28.1"
   }
 }
