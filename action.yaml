@@ -15,5 +15,5 @@ inputs:
       The target platform.
       This is the target platform has to match a released version of huff-neo.
 runs:
-  using: node16
+  using: node24
   main: dist/index.js

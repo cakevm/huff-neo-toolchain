@@ -1,7 +1,7 @@
-const core = require('@actions/core')
-const tc = require('@actions/tool-cache')
-const path = require('path')
-const utils = require('./utils')
+import * as core from '@actions/core'
+import * as tc from '@actions/tool-cache'
+import path from 'path'
+import * as utils from './utils.js'
 
 
 async function setup() {
@@ -40,8 +40,6 @@ async function setup() {
   }
 }
 
-module.exports = setup
+export default setup
 
-if (require.main === module) {
-  setup()
-}
+setup()
