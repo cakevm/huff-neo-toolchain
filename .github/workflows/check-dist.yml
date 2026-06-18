@@ -1,0 +1,67 @@
+# The action is run from `dist/index.js`, which is bundled from `src/` at build
+# time. Because GitHub runs the committed bundle directly (it does not install
+# deps or build when the action is used), `dist/` must always match `src/`.
+# This workflow rebuilds the bundle from source and fails if the committed
+# `dist/` differs from a fresh build — so a PR can never ship bundle code that
+# isn't reproducible from the readable source.
+#
+# Adapted from the official GitHub template:
+# https://github.com/actions/typescript-action/blob/200fd78b/.github/workflows/check-dist.yml
+name: Check Bundled JavaScript
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check-dist:
+    name: Check dist
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Remove dist/ directory
+        run: npx rimraf ./dist
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Rebuild dist/ from source
+        run: npm run build
+
+      - name: Compare committed dist/ with fresh build
+        id: diff
+        run: |
+          if [ ! -d dist/ ]; then
+            echo "Expected dist/ directory does not exist. See status below:"
+            ls -la ./
+            exit 1
+          fi
+          if [ "$(git diff --ignore-space-at-eol --text dist/ | wc -l)" -gt "0" ]; then
+            echo "Committed dist/ does not match a fresh build. Run 'npm run build' and commit the result. Diff:"
+            git diff --ignore-space-at-eol --text dist/
+            exit 1
+          fi
+
+      # Upload the expected dist/ so the author can download the correct bundle.
+      - name: Upload expected dist/ on failure
+        if: ${{ failure() && steps.diff.outcome == 'failure' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
